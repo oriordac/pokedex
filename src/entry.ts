@@ -34,7 +34,7 @@ const getPokemon = async (id: number): Promise<void> => {
 
 const showPokemon = (pokemon: IPokemon): void => {
     let output: string = `
-        <div class="card" onclick='viewEntry(${pokemon.id})'>
+        <div class="card">
             <span class="card--id">#${pokemon.id}</span>
             <img class="card--image" src=${pokemon.image} alt=${pokemon.name} />
             <h1 class="card--name">${pokemon.name}</h1>
