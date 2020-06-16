@@ -35,7 +35,7 @@ const getPokemon = async (id: number): Promise<void> => {
 
 const showPokemon = (pokemon: IPokemon): void => {
     let output: string = `
-        <div class="card" onclick='viewEntry(${pokemon.id})'>
+        <div class="card" onclick='viewEntryById(${pokemon.id})'>
             <span class="card--id">#${pokemon.id}</span>
             <img class="card--image" src=${pokemon.image} alt=${pokemon.name} />
             <h1 class="card--name">${pokemon.name}</h1>
@@ -49,7 +49,6 @@ const showPokemon = (pokemon: IPokemon): void => {
 fetchData();
 
 //Pass the id number to another html page 
-const viewEntry = (id: number) => {
-    console.log(`Testing...${id}`);
-    window.location.href = `./entry.html?id=${id}`;
+const viewEntryById = (id: number) => {
+    window.location.href = `./entry.html?id=${id}&name=`;
 }

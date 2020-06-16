@@ -4,6 +4,7 @@ export {};
 const urlParams = new URLSearchParams(window.location.search);
 //Come back to this later. Value may be null causing a runtime error
 const entryId: number = +urlParams.get('id')!;
+const entryName: string = urlParams.get('name')!.toLowerCase();
 
 //Use entryId to call the PokemonAPI
 const container = document.getElementById('entry')! as HTMLElement;
@@ -20,8 +21,9 @@ interface IPokemon {
     flavor: string;
 };
 
-const getPokemon = async (id: number): Promise<void> => {
-    const data: Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+const getPokemon = async (param: number | string): Promise<void> => {
+    //param can either be the nationaldex id or the pokemon's name for this API
+    const data: Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${param}`);
     const pokemon: any = await data.json();
     const pokemonHeight: number = pokemon.height;
     const pokemonWeight: number = pokemon.weight;
@@ -80,7 +82,12 @@ const showPokemon = (pokemon: IPokemon): void => {
     container.innerHTML += output;   
 };
 
-getPokemon(entryId);
+if(entryId) {
+    getPokemon(entryId);
+} else {
+    getPokemon(entryName);
+}
+
 
 const returnHome = ( ) => {
     window.location.href = `./index.html`;

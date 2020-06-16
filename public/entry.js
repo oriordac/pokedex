@@ -11,11 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const urlParams = new URLSearchParams(window.location.search);
 //Come back to this later. Value may be null causing a runtime error
 const entryId = +urlParams.get('id');
+const entryName = urlParams.get('name').toLowerCase();
 //Use entryId to call the PokemonAPI
 const container = document.getElementById('entry');
 ;
-const getPokemon = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+const getPokemon = (param) => __awaiter(void 0, void 0, void 0, function* () {
+    //param can either be the nationaldex id or the pokemon's name for this API
+    const data = yield fetch(`https://pokeapi.co/api/v2/pokemon/${param}`);
     const pokemon = yield data.json();
     const pokemonHeight = pokemon.height;
     const pokemonWeight = pokemon.weight;
@@ -68,7 +70,12 @@ const showPokemon = (pokemon) => {
     `;
     container.innerHTML += output;
 };
-getPokemon(entryId);
+if (entryId) {
+    getPokemon(entryId);
+}
+else {
+    getPokemon(entryName);
+}
 const returnHome = () => {
     window.location.href = `./index.html`;
 };
