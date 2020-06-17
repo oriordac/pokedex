@@ -1,12 +1,10 @@
 export {};
 
-//Get the pokemon's id passed from index.html
 const urlParams = new URLSearchParams(window.location.search);
 //Come back to this later. Value may be null causing a runtime error
 const entryId: number = +urlParams.get('id')!;
 const entryName: string = urlParams.get('name')!.toLowerCase();
 
-//Use entryId to call the PokemonAPI
 const container = document.getElementById('entry')! as HTMLElement;
 
 interface IPokemon {
@@ -39,7 +37,6 @@ const getPokemon = async (param: number | string): Promise<void> => {
     const pokemonFlavor: string = flavor.flavor_text_entries[0].flavor_text
         .replace(/\s+/g, ' ')
         .trim();
-    console.log(flavor);
     
     const transformedPokemon = {
         id: pokemon.id,
@@ -82,6 +79,7 @@ const showPokemon = (pokemon: IPokemon): void => {
     container.innerHTML += output;   
 };
 
+//Use one of the two parameters to call the PokeAPI
 if(entryId) {
     getPokemon(entryId);
 } else {

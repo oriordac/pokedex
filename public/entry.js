@@ -7,12 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-//Get the pokemon's id passed from index.html
 const urlParams = new URLSearchParams(window.location.search);
 //Come back to this later. Value may be null causing a runtime error
 const entryId = +urlParams.get('id');
 const entryName = urlParams.get('name').toLowerCase();
-//Use entryId to call the PokemonAPI
 const container = document.getElementById('entry');
 ;
 const getPokemon = (param) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,7 +30,6 @@ const getPokemon = (param) => __awaiter(void 0, void 0, void 0, function* () {
     const pokemonFlavor = flavor.flavor_text_entries[0].flavor_text
         .replace(/\s+/g, ' ')
         .trim();
-    console.log(flavor);
     const transformedPokemon = {
         id: pokemon.id,
         name: pokemon.name,
@@ -70,6 +67,7 @@ const showPokemon = (pokemon) => {
     `;
     container.innerHTML += output;
 };
+//Use one of the two parameters to call the PokeAPI
 if (entryId) {
     getPokemon(entryId);
 }
