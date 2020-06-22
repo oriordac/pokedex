@@ -27,7 +27,9 @@ const getPokemon = (param) => __awaiter(void 0, void 0, void 0, function* () {
         .join(', ');
     const data2 = yield fetch(`${pokemon.species.url}`);
     const flavor = yield data2.json();
-    const pokemonFlavor = flavor.flavor_text_entries[0].flavor_text
+    //Pass flavor.flavor_text_entries to englishFlavor function. Get the index of the first English flavor text
+    const flavorIndex = englishFlavor(flavor.flavor_text_entries);
+    const pokemonFlavor = flavor.flavor_text_entries[flavorIndex].flavor_text
         .replace(/\s+/g, ' ')
         .trim();
     const transformedPokemon = {
@@ -43,6 +45,9 @@ const getPokemon = (param) => __awaiter(void 0, void 0, void 0, function* () {
     };
     showPokemon(transformedPokemon);
 });
+const englishFlavor = (flavor) => {
+    return flavor.findIndex((entry) => entry.language.name == "en");
+};
 const showPokemon = (pokemon) => {
     let output = `
         <div class="card">

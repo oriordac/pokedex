@@ -34,7 +34,10 @@ const getPokemon = async (param: number | string): Promise<void> => {
 
     const data2: Response = await fetch(`${pokemon.species.url}`);
     const flavor: any = await data2.json();
-    const pokemonFlavor: string = flavor.flavor_text_entries[0].flavor_text
+
+    //Pass flavor.flavor_text_entries to englishFlavor function. Get the index of the first English flavor text
+    const flavorIndex = englishFlavor(flavor.flavor_text_entries);
+    const pokemonFlavor: string = flavor.flavor_text_entries[flavorIndex].flavor_text
         .replace(/\s+/g, ' ')
         .trim();
     
@@ -52,6 +55,10 @@ const getPokemon = async (param: number | string): Promise<void> => {
     
     showPokemon(transformedPokemon);
 };
+
+const englishFlavor = (flavor: any[]) => {
+    return flavor.findIndex( (entry) => entry.language.name == "en");
+}
 
 const showPokemon = (pokemon: IPokemon): void => {
     let output: string = `
